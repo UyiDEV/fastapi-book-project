@@ -16,7 +16,7 @@ jobs:
             - name: Setup SSH Key
               run: |
                   mkdir -p ~/.ssh
-                  echo "${{ secrets.EC2_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+                  echo "${{ secrets.EC2_PRIVATE_KEY }}" | tr -d '\r' > ~/.ssh/id_rsa
                   chmod 600 ~/.ssh/id_rsa
                   ssh-keyscan ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
@@ -28,4 +28,10 @@ jobs:
                     source venv/bin/activate
                     pip install -r requirements.txt
                     systemctl restart fastapi
+                  EOF
+                
+            - name: Deploy to Docker
+              run: |
+                  docker-compose down
+                  docker-compose up -d
                   EOF
