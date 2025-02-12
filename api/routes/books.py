@@ -61,7 +61,7 @@ async def get_book(book_id: int):
 
 @router.put("/{book_id}", response_model=Book, status_code=status.HTTP_200_OK)
 async def update_book(book_id: int, book: Book):
-    update_book = db.updated_book(book_id, book)
+    update_book = db.update_book(book_id, book)
     if update_book is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
