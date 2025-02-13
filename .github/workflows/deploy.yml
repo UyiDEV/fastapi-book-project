@@ -47,6 +47,7 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
           sudo apt-get update && sudo apt upgrade -y && sudo apt-get install docker.io -y
+          docker login -u osakueomoruyi -p ${{ secrets.DOCKER_PASSWORD }}
           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/fastapi-app:latest
           sudo docker stop fastapi-app || true
           sudo docker rm fastapi-app || true
