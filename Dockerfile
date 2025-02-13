@@ -18,9 +18,7 @@ RUN apk add --no-cache python3 py3-pip
 WORKDIR /app
 
 COPY requirements.txt .
-RUN python3 -m venv venv && \
-    . venv/bin/activate
-RUN pip3 install -r requirements.txt
+RUN pip install -r requirements.txt
 
 EXPOSE 80
 
